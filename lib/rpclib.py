@@ -6,7 +6,8 @@ import http
 def rpc_connect(rpc_user, rpc_password, server, port):
     try:
         rpc_connection = Proxy("http://%s:%s@%s:%d"%(rpc_user, rpc_password, server, port))
-    except (http.client.CannotSendRequest, http.client.RemoteDisconnected, ConnectionRefusedError, OSError):
+    except Exception as e:
+        print(e)
         raise Exception("Connection error! Probably no daemon on selected port.")
     return rpc_connection
 

@@ -1,4 +1,4 @@
-from lib import rpclib
+from lib import channelslib, rpclib
 from kivy.app import App
 from kivy.uix.screenmanager import Screen
 
@@ -25,5 +25,5 @@ class LoginPage(Screen):
             else:
                 App.get_running_app().rpc_connection = connection
                 App.get_running_app().is_connected = True
-                self.manager.current = "user"
+                # TODO: loading channels list on startup
                 break

@@ -9,6 +9,10 @@ class ChannelsCCApp(App):
 
     title = "ChannelsCC GUI"
 
+    is_connected = False
+
+    rpc_connection = None
+
     def build(self):
         gui = Builder.load_file("gui/kv/channelscc.kv")
         return gui

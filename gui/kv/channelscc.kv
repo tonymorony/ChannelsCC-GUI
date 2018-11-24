@@ -1,7 +1,11 @@
+#:import ListAdapter kivy.adapters.listadapter.ListAdapter
+#:import App kivy.app
 #:import ScreenManagement gui.screens.screenmanagement
 #:import UserPage gui.screens.userpage
 #:import LoginPage gui.screens.loginpage
-
+#:import ChannelListItemButton gui.buttons.channelbutton
+#:import RefreshChannelsListButton gui.buttons.refreshlist
+#:import ChannelsLibrary lib.channelslib
 
 ScreenManagement:
     LoginPage:
@@ -42,5 +46,17 @@ ScreenManagement:
     name: "user"
     BoxLayout:
         id: mainbox
-        orientation: 'horizontal'
+        orientation: 'vertical'
         padding: 10
+        ScrollView:
+            id: channelsscroll
+            padding: 5
+            ListView:
+                name: 'channelslist'
+                id: channelslist
+                adapter: ListAdapter(data = ChannelsLibrary.get_channels_list(app.rpc_connection), cls = 'ChannelListItemButton')
+        RefreshChannelsListButton:
+            id: refreshchlist
+            text: "Refresh channels list"
+            size_hint: 1, 0.2
+            on_release: channelslist.adapter.data = ChannelsLibrary.get_channels_list(app.rpc_connection)

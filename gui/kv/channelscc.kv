@@ -1,0 +1,46 @@
+#:import ScreenManagement gui.screens.screenmanagement
+#:import UserPage gui.screens.userpage
+#:import LoginPage gui.screens.loginpage
+
+
+ScreenManagement:
+    LoginPage:
+    UserPage:
+
+<LoginPage>:
+    name: "login_page"
+    BoxLayout:
+        orientation: 'vertical'
+        Image:
+            source: 'gui/img/logo.png'
+            size_hint: 1, 0.3
+        GridLayout:
+            rows: 4
+            Label:
+                text: "RPC Server:"
+            TextInput:
+                id: rpcserver
+            Label:
+                text: "RPC User:"
+            TextInput:
+                id: rpcuser
+            Label:
+                text: "RPC Password:"
+            TextInput:
+                id: rpcpassword
+            Label:
+                text: "RPC Port:"
+            TextInput:
+                id: port
+        Button:
+            text: "Try to connect"
+            size_hint: 1, 0.2
+            on_release: root.verify_credentials()
+
+
+<UserPage>:
+    name: "user"
+    BoxLayout:
+        id: mainbox
+        orientation: 'horizontal'
+        padding: 10

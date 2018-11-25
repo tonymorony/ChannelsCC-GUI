@@ -1,4 +1,4 @@
-from lib import rpclib
+from lib import rpclib, channelslib
 from kivy.app import App
 from kivy.uix.screenmanager import Screen
 import json

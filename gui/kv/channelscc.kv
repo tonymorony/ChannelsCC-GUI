@@ -11,8 +11,11 @@
 
 ScreenManagement:
     LoginPage:
+        id: loginpage
     UserPage:
+        id: userpage
     ChannelCreationPage:
+        id: channelcreation
 
 <LoginPage>:
     name: "login_page"
@@ -56,6 +59,7 @@ ScreenManagement:
 
 <UserPage>:
     name: "user"
+    on_pre_enter: channelslist.adapter.data = ChannelsLibrary.get_channels_list(app.rpc_connection)
     BoxLayout:
         id: mainbox
         orientation: 'vertical'
@@ -85,7 +89,6 @@ ScreenManagement:
 
 
 <ChannelCreationPage>:
-
     name: "channelcreation"
     BoxLayout:
         orientation: "vertical"

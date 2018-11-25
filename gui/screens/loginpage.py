@@ -25,5 +25,6 @@ class LoginPage(Screen):
             else:
                 App.get_running_app().rpc_connection = connection
                 App.get_running_app().is_connected = True
+                self.manager.current = "user"
                 # TODO: loading channels list on startup
                 break

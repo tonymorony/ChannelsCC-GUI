@@ -3,13 +3,16 @@
 #:import ScreenManagement gui.screens.screenmanagement
 #:import UserPage gui.screens.userpage
 #:import LoginPage gui.screens.loginpage
+#:import ChannelCreateScreen gui.screens.channelcreation
 #:import ChannelListItemButton gui.buttons.channelbutton
+#:import CreateChannelButton gui.buttons.createchannel
 #:import RefreshChannelsListButton gui.buttons.refreshlist
 #:import ChannelsLibrary lib.channelslib
 
 ScreenManagement:
     LoginPage:
     UserPage:
+    ChannelCreationPage:
 
 <LoginPage>:
     name: "login_page"
@@ -19,23 +22,32 @@ ScreenManagement:
             source: 'gui/img/logo.png'
             size_hint: 1, 0.3
         GridLayout:
-            rows: 4
+            rows: 5
             Label:
                 text: "RPC Server:"
             TextInput:
                 id: rpcserver
+                text: ChannelsLibrary.ConfigReader().rpc_server
             Label:
                 text: "RPC User:"
             TextInput:
                 id: rpcuser
+                text: ChannelsLibrary.ConfigReader().rpc_user
             Label:
                 text: "RPC Password:"
             TextInput:
                 id: rpcpassword
+                text: ChannelsLibrary.ConfigReader().rpc_password
             Label:
                 text: "RPC Port:"
             TextInput:
                 id: port
+                text: ChannelsLibrary.ConfigReader().rpc_port
+            Label:
+                text: "Save login details?"
+            CheckBox:
+                id: savelogin
+                active: True
         Button:
             text: "Try to connect"
             size_hint: 1, 0.2
@@ -58,5 +70,56 @@ ScreenManagement:
         RefreshChannelsListButton:
             id: refreshchlist
             text: "Refresh channels list"
-            size_hint: 1, 0.2
+            size_hint: 1, 0.15
             on_release: channelslist.adapter.data = ChannelsLibrary.get_channels_list(app.rpc_connection)
+        CreateChannelButton:
+            id: createchannel
+            text: "Open new channel"
+            size_hint: 1, 0.15
+            on_release: root.manager.current = "channelcreation"
+        Button:
+            id: changerpc
+            text: "Change RPC connection credentials"
+            size_hint: 1, 0.15
+            on_release: root.manager.current = "login_page"
+
+
+<ChannelCreationPage>:
+
+    name: "channelcreation"
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            id: creationstatus
+            text: "Input your channel details"
+            size_hint: 1, 0.2
+            markup: True
+        GridLayout:
+            rows: 3
+            size_hint: 1, 0.8
+            Label:
+                text: "Destination pubkey:"
+            TextInput:
+                id: destpubkey
+            Label:
+                text: "Number of payments:"
+            TextInput:
+                id: numpayments
+            Label:
+                text: "Denomnination (in satoshis):"
+            TextInput:
+                id: denomination
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1, 0.1
+        Button:
+            id: createchanelinit
+            text: "Open channel"
+            size_hint: 0.5, 1
+            on_release: root.create_channel()
+        Button:
+            id: back
+            text: "Back"
+            size_hint: 0.5, 1
+            on_release: root.manager.current = "user"
+

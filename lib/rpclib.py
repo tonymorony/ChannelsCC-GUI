@@ -148,3 +148,7 @@ def gateways_withdraw(rpc_connection, gateway_id, coin_name, withdraw_pub, amoun
 def channels_info(rpc_connection, channel_id = None):
     info = rpc_connection.channelsinfo(channel_id)
     return info
+
+def channels_open(rpc_connection, destpubkey, paymentsnum, denomination):
+    new_channel = rpc_connection.channelsopen(destpubkey, paymentsnum, denomination)
+    return new_channel

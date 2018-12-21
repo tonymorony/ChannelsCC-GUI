@@ -7,13 +7,18 @@ import json
 def get_channels_list(rpc_connection):
 
     if App.get_running_app().is_connected:
-        channels_list = rpclib.channels_info(rpc_connection)
+        channels_list = rpclib.channels_list(rpc_connection)
+        try:
+            del channels_list["result"]
+            del channels_list["name"]
+        except KeyError:
+            pass
         channels_txids = []
-        channels_list.pop("result")
-        channels_list.pop("name")
-
-        for channel in channels_list.values():
-            channels_txids.append(channel[-64:])
+        try:
+            for channel in channels_list.keys():
+                channels_txids.append(channel)
+        except KeyError:
+            channels_txids = ["No channels on this asset chain opened so far"]
     else:
         channels_txids = ""
 

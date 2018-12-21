@@ -1,5 +1,7 @@
 from lib import rpclib, channelslib
 from kivy.app import App
+from kivy.uix.popup import Popup
+from kivy.uix.button import Button
 from kivy.uix.screenmanager import Screen
 import json
 
@@ -15,9 +17,12 @@ class LoginPage(Screen):
                 password_input = self.ids["rpcpassword"].text
                 port_input = int(self.ids["port"].text)
                 connection = rpclib.rpc_connect(user_input, password_input, server_input, port_input)
+                rpclib.getinfo(connection)
             except Exception as e:
                 print(e)
                 print("Not connected. Please check credentials")
+                content = Button(text='Close me!')
+                popup = Popup(content=content, auto_dismiss=False)
                 # TODO: have to throw popup and in this case not clean text fields
                 self.ids["rpcserver"].text = ''
                 self.ids["rpcuser"].text = ''

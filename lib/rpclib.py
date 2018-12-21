@@ -14,10 +14,7 @@ def rpc_connect(rpc_user, rpc_password, server, port):
 
 # Non CC calls
 def getinfo(rpc_connection):
-    try:
-        info = rpc_connection.getinfo()
-    except (http.client.RemoteDisconnected, ConnectionRefusedError, OSError):
-        raise Exception("Connection error!")
+    info = rpc_connection.getinfo()
     return info
 
 
@@ -145,10 +142,16 @@ def gateways_withdraw(rpc_connection, gateway_id, coin_name, withdraw_pub, amoun
 
 
 # Channels CC calls
-def channels_info(rpc_connection, channel_id = None):
+def channels_info(rpc_connection, channel_id=None):
     info = rpc_connection.channelsinfo(channel_id)
     return info
+
 
 def channels_open(rpc_connection, destpubkey, paymentsnum, denomination):
     new_channel = rpc_connection.channelsopen(destpubkey, paymentsnum, denomination)
     return new_channel
+
+
+def channels_list(rpc_connection):
+    channels_list = rpc_connection.channelslist()
+    return channels_list

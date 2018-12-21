@@ -9,6 +9,7 @@
 #:import RefreshChannelsListButton gui.buttons.refreshlist
 #:import ChannelsLibrary lib.channelslib
 
+
 ScreenManagement:
     LoginPage:
         id: loginpage
@@ -59,33 +60,52 @@ ScreenManagement:
 
 <UserPage>:
     name: "user"
-    on_pre_enter: channelslist.adapter.data = ChannelsLibrary.get_channels_list(app.rpc_connection)
+    on_enter: channelslist.adapter.data = ChannelsLibrary.get_channels_list(app.rpc_connection)
     BoxLayout:
-        id: mainbox
         orientation: 'vertical'
-        padding: 10
-        ScrollView:
-            id: channelsscroll
-            padding: 5
-            ListView:
-                name: 'channelslist'
-                id: channelslist
-                adapter: ListAdapter(data = ChannelsLibrary.get_channels_list(app.rpc_connection), cls = 'ChannelListItemButton')
-        RefreshChannelsListButton:
-            id: refreshchlist
-            text: "Refresh channels list"
-            size_hint: 1, 0.15
-            on_release: channelslist.adapter.data = ChannelsLibrary.get_channels_list(app.rpc_connection)
-        CreateChannelButton:
-            id: createchannel
-            text: "Open new channel"
-            size_hint: 1, 0.15
-            on_release: root.manager.current = "channelcreation"
-        Button:
-            id: changerpc
-            text: "Change RPC connection credentials"
-            size_hint: 1, 0.15
-            on_release: root.manager.current = "login_page"
+        GridLayout:
+            rows: 1
+            size_hint: 1, 0.1
+            Label:
+                text: "Channels list:"
+            Label:
+                text: "Channel info:"
+        BoxLayout:
+            id: mainbox
+            orientation: 'horizontal'
+            ScrollView:
+                id: channelsscroll
+                ListView:
+                    size_hint: 1, 1
+                    name: 'channelslist'
+                    id: channelslist
+                    adapter: ListAdapter(data = ChannelsLibrary.get_channels_list(app.rpc_connection), cls = 'ChannelListItemButton')
+            Label:
+                id: channelinformation
+                text: "Follow the White Rabbit"
+                size_hint: 1, 1
+                text_size: self.size
+                padding: 2,2
+                valign: 'top'
+                halign: 'center'
+        BoxLayout:
+            size_hint: 1, 0.17
+            orientation: "vertical"
+            RefreshChannelsListButton:
+                id: refreshchlist
+                text: "Refresh channels list"
+                size_hint: 1, 0.15
+                on_release: channelslist.adapter.data = ChannelsLibrary.get_channels_list(app.rpc_connection)
+            CreateChannelButton:
+                id: createchannel
+                text: "Open new channel"
+                size_hint: 1, 0.15
+                on_release: root.manager.current = "channelcreation"
+            Button:
+                id: changerpc
+                text: "Change RPC connection credentials"
+                size_hint: 1, 0.15
+                on_release: root.manager.current = "login_page"
 
 
 <ChannelCreationPage>:
@@ -96,22 +116,34 @@ ScreenManagement:
             id: creationstatus
             text: "Input your channel details"
             size_hint: 1, 0.2
+            text_size: self.size
             markup: True
+            valign: "center"
+            halign: "center"
         GridLayout:
             rows: 3
-            size_hint: 1, 0.8
+            size_hint: 1, 0.7
             Label:
                 text: "Destination pubkey:"
+                text_size: self.size
+                size_hint: 1, 0.33
             TextInput:
                 id: destpubkey
+                size_hint: 1, 0.33
             Label:
                 text: "Number of payments:"
+                text_size: self.size
+                size_hint: 1, 0.33
             TextInput:
                 id: numpayments
+                size_hint: 1, 0.33
             Label:
                 text: "Denomnination (in satoshis):"
+                text_size: self.size
+                size_hint: 1, 0.33
             TextInput:
                 id: denomination
+                size_hint: 1, 0.33
     BoxLayout:
         orientation: 'horizontal'
         size_hint: 1, 0.1

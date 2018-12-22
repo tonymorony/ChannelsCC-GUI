@@ -122,39 +122,42 @@ ScreenManagement:
             halign: "center"
         GridLayout:
             rows: 3
-            size_hint: 1, 0.7
+            size_hint: 1, 0.5
             Label:
                 text: "Destination pubkey:"
+                size: self.texture_size
                 text_size: self.size
-                size_hint: 1, 0.33
+                valign: 'middle'
+                halign: 'center'
             TextInput:
                 id: destpubkey
-                size_hint: 1, 0.33
             Label:
                 text: "Number of payments:"
+                size: self.texture_size
                 text_size: self.size
-                size_hint: 1, 0.33
+                valign: 'middle'
+                halign: 'center'
             TextInput:
                 id: numpayments
-                size_hint: 1, 0.33
             Label:
                 text: "Denomnination (in satoshis):"
+                size: self.texture_size
                 text_size: self.size
-                size_hint: 1, 0.33
+                valign: 'middle'
+                halign: 'center'
             TextInput:
                 id: denomination
-                size_hint: 1, 0.33
-    BoxLayout:
-        orientation: 'horizontal'
-        size_hint: 1, 0.1
-        Button:
-            id: createchanelinit
-            text: "Open channel"
-            size_hint: 0.5, 1
-            on_release: root.create_channel()
-        Button:
-            id: back
-            text: "Back"
-            size_hint: 0.5, 1
-            on_release: root.manager.current = "user"
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, 0.1
+            Button:
+                id: createchanelinit
+                text: "Open channel"
+                size_hint: 0.5, 1
+                on_release: root.create_channel()
+            Button:
+                id: back
+                text: "Back"
+                size_hint: 0.5, 1
+                on_release: root.manager.current = "user"
 

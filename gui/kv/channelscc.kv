@@ -3,6 +3,7 @@
 #:import ScreenManagement gui.screens.screenmanagement
 #:import UserPage gui.screens.userpage
 #:import LoginPage gui.screens.loginpage
+#:import PaymentPage gui.screens.paymentpage
 #:import ChannelCreateScreen gui.screens.channelcreation
 #:import ChannelListItemButton gui.buttons.channelbutton
 #:import CreateChannelButton gui.buttons.createchannel
@@ -17,6 +18,8 @@ ScreenManagement:
         id: userpage
     ChannelCreationPage:
         id: channelcreation
+    PaymentPage:
+        id: paymentpage
 
 <LoginPage>:
     name: "login_page"
@@ -74,6 +77,7 @@ ScreenManagement:
                 text: ChannelsLibrary.get_balance(app.rpc_connection)
             Button:
                 text: "Refresh balance"
+                size_hint: 0.3, 1
                 on_release: balance.text = ChannelsLibrary.get_balance(app.rpc_connection)
         GridLayout:
             rows: 1
@@ -118,6 +122,11 @@ ScreenManagement:
                 text: "Change RPC connection credentials"
                 size_hint: 1, 0.15
                 on_release: root.manager.current = "login_page"
+            Button:
+                id: paymentbutton
+                text: "Make a payment"
+                size_hint: 1, 0.15
+                on_release: root.manager.current = "paymentpage"
 
 
 <ChannelCreationPage>:
@@ -172,4 +181,13 @@ ScreenManagement:
                 text: "Back"
                 size_hint: 0.5, 1
                 on_release: root.manager.current = "user"
+
+
+<PaymentPage>:
+    name: "paymentpage"
+    Button:
+        id: back
+        text: "Back"
+        size_hint: 0.5, 1
+        on_release: root.manager.current = "user"
 

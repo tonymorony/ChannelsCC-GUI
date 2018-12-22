@@ -25,6 +25,17 @@ def get_channels_list(rpc_connection):
     return channels_txids
 
 
+def get_balance(rpc_connection):
+    if App.get_running_app().is_connected:
+        balance = str(rpclib.getbalance(rpc_connection))
+        ticker = rpclib.getinfo(rpc_connection)["name"]
+        balance_reflection = balance + " " + ticker
+    # to not crash in some cases when not connected or losing connection
+    else:
+        balance_reflection = ""
+    return balance_reflection
+
+
 class ConfigReader:
 
     def __init__(self):

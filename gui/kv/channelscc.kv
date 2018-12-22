@@ -61,8 +61,20 @@ ScreenManagement:
 <UserPage>:
     name: "user"
     on_enter: channelslist.adapter.data = ChannelsLibrary.get_channels_list(app.rpc_connection)
+    on_enter: balance.text = ChannelsLibrary.get_balance(app.rpc_connection)
     BoxLayout:
         orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, 0.1
+            Label:
+                text: "Balance:"
+            Label:
+                id: balance
+                text: ChannelsLibrary.get_balance(app.rpc_connection)
+            Button:
+                text: "Refresh balance"
+                on_release: balance.text = ChannelsLibrary.get_balance(app.rpc_connection)
         GridLayout:
             rows: 1
             size_hint: 1, 0.1

@@ -18,6 +18,11 @@ def getinfo(rpc_connection):
     return info
 
 
+def getbalance(rpc_connection):
+    balance = rpc_connection.getbalance()
+    return balance
+
+
 def sendrawtransaction(rpc_connection, hex):
     tx_id = rpc_connection.sendrawtransaction(hex)
     return tx_id

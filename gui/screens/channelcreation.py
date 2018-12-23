@@ -2,6 +2,7 @@ from lib import rpclib
 from kivy.uix.screenmanager import Screen
 from kivy.app import App
 
+
 class ChannelCreationPage(Screen):
 
     def create_channel(self):

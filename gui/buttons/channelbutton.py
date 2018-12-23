@@ -15,6 +15,7 @@ class ChannelListItemButton(ListItemButton):
 
     def deselect(self):
         application = App.get_running_app()
+        # on deselect set active channel id as blank and clear info text
         application.active_channel_id = ""
         application.root.ids.userpage.ids.channelinformation.text = ""
         self.background_color = [0., 1., 0., 1]

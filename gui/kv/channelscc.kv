@@ -189,8 +189,7 @@ ScreenManagement:
 
 <PaymentPage>:
     name: "paymentpage"
-    #on_enter: self.paymentslider.max = int(getbalance(app.rpc_connection))
-    #on_enter: self.paymentslider.step = int(channels_info(app.rpc_connection, app.active_channel_id)["Denomination"]) / 100000000
+    on_enter: PaymentSlider.PaymentSlider.set_slider_values(self.ids.paymentslider)
     BoxLayout:
         orientation: "vertical"
         PaymentSlider:
@@ -200,7 +199,7 @@ ScreenManagement:
             on_touch_move: paymentamount.text = str(self.value)
         Label:
             id: paymentamount
-            text: "Ni hao"
+            text: "0"
         Button:
             id: back
             text: "Back"

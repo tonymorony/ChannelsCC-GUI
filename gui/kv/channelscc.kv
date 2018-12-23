@@ -8,10 +8,14 @@
 #:import ChannelListItemButton gui.buttons.channelbutton
 #:import CreateChannelButton gui.buttons.createchannel
 #:import RefreshChannelsListButton gui.buttons.refreshlist
+#:import PaymentButton gui.buttons.paymentbutton
 #:import ChannelsLibrary lib.channelslib
-
+#:import PaymentSlider gui.sliders.paymentslider
+#:import getbalance lib.rpclib
+#:import channels_info lib.rpclib
 
 ScreenManagement:
+    id: screenmanager
     LoginPage:
         id: loginpage
     UserPage:
@@ -96,14 +100,15 @@ ScreenManagement:
                     name: 'channelslist'
                     id: channelslist
                     adapter: ListAdapter(data = ChannelsLibrary.get_channels_list(app.rpc_connection), cls = 'ChannelListItemButton')
-            Label:
-                id: channelinformation
-                text: "Follow the White Rabbit"
-                size_hint: 1, 1
-                text_size: self.size
-                padding: 2,2
-                valign: 'top'
-                halign: 'center'
+            ScrollView:
+                Label:
+                    id: channelinformation
+                    text: "Follow the White Rabbit"
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    halign: 'left'
+                    valign: 'top'
         BoxLayout:
             size_hint: 1, 0.17
             orientation: "vertical"
@@ -122,11 +127,10 @@ ScreenManagement:
                 text: "Change RPC connection credentials"
                 size_hint: 1, 0.15
                 on_release: root.manager.current = "login_page"
-            Button:
+            PaymentButton:
                 id: paymentbutton
                 text: "Make a payment"
                 size_hint: 1, 0.15
-                on_release: root.manager.current = "paymentpage"
 
 
 <ChannelCreationPage>:
@@ -185,9 +189,21 @@ ScreenManagement:
 
 <PaymentPage>:
     name: "paymentpage"
-    Button:
-        id: back
-        text: "Back"
-        size_hint: 0.5, 1
-        on_release: root.manager.current = "user"
+    #on_enter: self.paymentslider.max = int(getbalance(app.rpc_connection))
+    #on_enter: self.paymentslider.step = int(channels_info(app.rpc_connection, app.active_channel_id)["Denomination"]) / 100000000
+    BoxLayout:
+        orientation: "vertical"
+        PaymentSlider:
+            id: paymentslider
+            max: 10
+            step: 1
+            on_touch_move: paymentamount.text = str(self.value)
+        Label:
+            id: paymentamount
+            text: "Ni hao"
+        Button:
+            id: back
+            text: "Back"
+            size_hint: 0.5, 1
+            on_release: root.manager.current = "user"
 

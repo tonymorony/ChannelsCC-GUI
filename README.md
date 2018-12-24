@@ -9,7 +9,9 @@ And here: https://github.com/KomodoPlatform/komodo/blob/master/src/cc/channels.c
 
 This tool is a graphical implementation of some ChannelsCC RPC calls.
 
-At the moment it's a prototype / mock so I didn't care about UI beauty at all. 
+At the moment it's a prototype / mock so I didn't care about UI beauty at all.
+
+![alt text](https://i.imgur.com/Yb3R7xK.png) 
 
 # Installation 
 
@@ -32,6 +34,7 @@ python3 main.py
 
 * If you want to use remote host for RPC connection you need to add your IP as rpcallowip= param to desired asset chain daemon config
 
+![alt text](https://i.imgur.com/u6aAIht.png)
 
 # Implemented calls
 
@@ -39,9 +42,9 @@ python3 main.py
 
 - [x] channelspayment (Use the "Make a payment" button on the main screen to go to payment screen)
 
-- []  channelsclose - Implementation in progress (with separation of list of channels to opened and closed)
+- [ ]  channelsclose - Implementation in progress (with separation of list of channels to opened and closed)
 
-- []  channelsrefund - Implementation in progress
+- [ ]  channelsrefund - Implementation in progress
 
 - [x] channelsinfo (Using in many places e.g. right part of main page)
 

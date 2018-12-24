@@ -104,7 +104,7 @@ ScreenManagement:
             ScrollView:
                 Label:
                     id: channelinformation
-                    text: "Follow the White Rabbit"
+                    text: "<----- Follow the White Rabbit"
                     text_size: self.width, None
                     size_hint_y: None
                     height: self.texture_size[1]
@@ -192,7 +192,7 @@ ScreenManagement:
     name: "paymentpage"
     on_enter: PaymentSlider.PaymentSlider.set_slider_values(self.ids.paymentslider)
     on_enter: paymentamount.text = "0"
-    on_enter: paymentstatus.text = ""
+    on_enter: paymentstatus.text = "Payment status"
     on_enter: channelinfotext.text = ChannelsLibrary.get_channel_info(app.rpc_connection, app.active_channel_id)
     on_enter: payments_left.text = str(ChannelsLibrary.get_channel_additional_info(app.rpc_connection, app.active_channel_id)["payments_left"])
     on_enter: denomination.text = str(ChannelsLibrary.get_channel_additional_info(app.rpc_connection, app.active_channel_id)["denomaination"])
@@ -221,6 +221,8 @@ ScreenManagement:
             Label:
                 id: capacity
                 text: "0"
+        Label:
+            text: "Choose payment sum in satoshis:"
         PaymentSlider:
             id: paymentslider
             max: 10

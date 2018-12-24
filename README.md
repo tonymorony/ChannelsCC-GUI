@@ -23,9 +23,9 @@ Pre-built packages are under development.
 sudo add-apt-repository ppa:kivy-team/kivy
 sudo apt-get install python3-pip libssl-dev cython3 libgl-dev git python3-kivy
 pip3 install requests wheel python-bitcoinlib slick-bitcoinrpc pygame
-git clone https://github.com/tonymorony/trollbox_gui
-cd trollbox_gui
-python3 main.py
+git clone https://github.com/tonymorony/ChannelsCC-GUI
+cd ChannelsCC-GUI
+python3 ChannelsCC.py
 ```
 
 # RPC Connection

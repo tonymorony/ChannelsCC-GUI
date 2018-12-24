@@ -110,9 +110,9 @@ ScreenManagement:
                     height: self.texture_size[1]
                     halign: 'left'
                     valign: 'top'
-        BoxLayout:
-            size_hint: 1, 0.17
-            orientation: "vertical"
+        GridLayout:
+            size_hint: 1, 0.25
+            rows: 2
             RefreshChannelsListButton:
                 id: refreshchlist
                 text: "Refresh channels list"
@@ -192,6 +192,7 @@ ScreenManagement:
     name: "paymentpage"
     on_enter: PaymentSlider.PaymentSlider.set_slider_values(self.ids.paymentslider)
     on_enter: paymentamount.text = "0"
+    on_enter: paymentstatus.text = ""
     on_enter: channelinfotext.text = ChannelsLibrary.get_channel_info(app.rpc_connection, app.active_channel_id)
     on_enter: payments_left.text = str(ChannelsLibrary.get_channel_additional_info(app.rpc_connection, app.active_channel_id)["payments_left"])
     on_enter: denomination.text = str(ChannelsLibrary.get_channel_additional_info(app.rpc_connection, app.active_channel_id)["denomaination"])

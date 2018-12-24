@@ -36,6 +36,38 @@ def get_balance(rpc_connection):
     return balance_reflection
 
 
+def get_channel_info(rpc_connection, channel_id):
+    info = rpclib.channels_list(rpc_connection)[channel_id]
+    info_with_id = "Channel " + str(channel_id) + " to wallet: " + info
+    return info_with_id
+
+
+def get_channel_additional_info(rpc_connection, channel_id):
+
+    channel_info = rpclib.channels_info(rpc_connection, channel_id)
+    denomination = channel_info["Denomination"]
+    total_capacity = int(channel_info["Number of payments"]) * int(channel_info["Denomination"])
+
+    already_spent_capacity = 0
+    transactions_amount = 0
+
+    for transaction in channel_info["Transactions"]:
+        try:
+            already_spent_capacity += int(transaction["Amount"])
+            transactions_amount += 1
+        except Exception:
+            pass
+
+    capacity_left = total_capacity - already_spent_capacity
+    transactions_left = int(channel_info["Number of payments"]) - transactions_amount
+
+    additional_info = {}
+    additional_info["denomaination"] = denomination
+    additional_info["payments_left"] = transactions_left
+    additional_info["capacity_left"] = capacity_left
+
+    return additional_info
+
 class ConfigReader:
 
     def __init__(self):

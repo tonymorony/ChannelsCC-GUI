@@ -160,3 +160,8 @@ def channels_open(rpc_connection, destpubkey, paymentsnum, denomination):
 def channels_list(rpc_connection):
     channels_list = rpc_connection.channelslist()
     return channels_list
+
+
+def channels_payment(rpc_connection, channel_txid, sum):
+    payment = rpc_connection.channelspayment(channel_txid, sum)
+    return payment

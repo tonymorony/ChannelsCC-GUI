@@ -10,10 +10,10 @@ class PaymentSlider(Slider):
     def set_slider_values(self):
         channel_info = rpclib.channels_info(self.application.rpc_connection, self.application.active_channel_id)
         # step is a denomination
-        self.step = int(channel_info["Denomination"])
+        self.step = int(channel_info["Denomination"][:-8])
         # max is a capacity which left in a channel
         # which calculating as a: LEFT_CAPACITY = TOTAL_CAPACITY - AMOUNT_OF_ALL_ALREADY_DONE_PAYMENTS
-        total_capacity = int(channel_info["Number of payments"]) * int(channel_info["Denomination"])
+        total_capacity = int(channel_info["Number of payments"]) * int(channel_info["Denomination"][:-8])
 
         already_spent_capacity = 0
 

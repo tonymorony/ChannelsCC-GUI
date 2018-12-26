@@ -46,7 +46,7 @@ def get_channel_additional_info(rpc_connection, channel_id):
 
     channel_info = rpclib.channels_info(rpc_connection, channel_id)
     denomination = channel_info["Denomination"]
-    total_capacity = int(channel_info["Number of payments"]) * int(channel_info["Denomination"])
+    total_capacity = int(channel_info["Number of payments"]) * int(channel_info["Denomination"][:-8])
 
     already_spent_capacity = 0
     transactions_amount = 0
